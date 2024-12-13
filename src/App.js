@@ -1,9 +1,11 @@
-import logoLight from "assets/logo/logoLight.svg";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "router/index.jsx";
 export default function App() {
   return (
     <>
-      <img src={logoLight} alt="Logo" />
-      <p>Hello world</p>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </>
   );
 }
