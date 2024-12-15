@@ -1,13 +1,15 @@
 export default function QuestionCheckbox({ obj, onChange }) {
   return (
-    <label htmlFor={obj.id} className="bg-gray-100 py-6 mb-2 px-4 flex items-center rounded-lg">
+    <label
+      htmlFor={obj.id}
+      className="relative bg-gray-100 py-6 mb-6 px-4 flex items-center rounded-lg">
       <input
         type="checkbox"
         id={obj.id}
         name={obj.id}
         value={obj.checked}
         onChange={(event) => onChange({ ...obj, checked: event.target.checked })}
-        className="peer mr-2 appearance-none size-5 border border-gray-500 rounded-full shrink-0 checked:bg-green-500 checked:border-green-600"
+        className="relative peer mr-2 appearance-none size-5 border border-gray-500 rounded-full shrink-0 checked:bg-green-500 checked:border-green-600"
       />
       <svg
         xmlns="http://www.w3.org/2000/svg"

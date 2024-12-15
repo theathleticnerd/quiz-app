@@ -1,7 +1,7 @@
 import semiCircleRing from "assets/images/Report/semicircleMeter.svg";
 
-export default function ResultMeter() {
-  const percentage = 57;
+export default function ResultMeter(props) {
+  const percentage = props.percentage || 0;
   const convertToDegrees = (x) => {
     if (x < 0 || x > 100) {
       throw new Error("Input must be between 0 and 100");
