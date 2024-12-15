@@ -1,5 +1,9 @@
+import QuestionCard from "./components/QuestionCard";
 import confettiImage from "assets/images/Miscellaneous/confetti.svg";
 import { useEffect, useState } from "react";
+/*
+'/questions/list' : "https://dummyjson.com/c/b1cb-e82e-480e-834b"
+*/
 export default function QuestionPage() {
   const questionData = [
     {
@@ -110,35 +114,30 @@ export default function QuestionPage() {
     q2: "q2-o3"
   };
   const [questionNumber, setQuestionNumber] = useState(0);
-  const [answeredData, setAnsweredData] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
+  const [optionsData, setOptionsData] = useState([]);
   const [askedData, setAskedData] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
-
   const getQuestion = () => {
-    if (answeredData.length < 5) {
-      const randomNumber = Math.floor(Math.random() * 10);
-      setQuestionNumber(randomNumber);
-      const obj = questionData[randomNumber];
-      setAskedData([...askedData, obj]);
-    }
+    const randomNumber = Math.floor(Math.random() * 10);
+    setQuestionNumber(randomNumber);
+    const obj = questionData[randomNumber];
+    setAskedData([...askedData, obj]);
+    setOptionsData(questionData[randomNumber].options);
   };
-  useEffect(getQuestion, [answeredData]);
+  // useEffect(getQuestion, [answeredData]);
   const submitAnswer = (event) => {
     event.preventDefault();
-    if (answeredData.length < 5) {
-      console.log(selectedOption);
-      console.log(answeredData.length);
-      setAnsweredData([...answeredData, selectedOption]);
-    }
+    const arr = optionsData.filter((item) => item.checked).map((item) => item.id);
+    const payload = {
+      [questionData[questionNumber].id]: arr
+    };
+    console.log(payload);
   };
-  useEffect(() => {
-    console.log("Go to Result Screen");
-  }, [answeredData]);
   return (
     <>
       <main className="bg-[#B19EF3]  h-svh max-h-svh ">
         <img src={confettiImage} alt="Confetti Image" />
-        <div className="bottom-0 bg-white absolute flex flex-col w-full  min-h-[34rem] rounded-t-3xl">
+        <div className="bottom-0 bg-white absolute flex flex-col w-full  h-[34rem] rounded-t-3xl">
           <div className="relative">
             <div className="bg-white size-32 rounded-full absolute  flex  items-center justify-center left-1/2 -translate-x-1/2 -translate-y-1/2">
               <div className="border-8  size-28 rounded-full flex items-center justify-center">
@@ -149,55 +148,33 @@ export default function QuestionPage() {
               </div>
             </div>
           </div>
-          <form className="px-4 pb-6 mt-16  grow flex flex-col justify-between">
-            <p className="text-xl font-semibold mb-4">{questionData[questionNumber].question}</p>
-            <div className="grow max-h-min overflow-y-auto mb-4">
-              {questionData[questionNumber].options.map((option) => {
-                return (
-                  <div
-                    key={option.id}
-                    className="bg-gray-100 py-6 mb-2 px-4 flex items-center rounded-lg"
-                    onClick={() => setSelectedOption(option.id)}>
-                    <input
-                      id={option.id}
-                      value={option.id}
-                      checked={option.id === selectedOption}
-                      name="options"
-                      type="radio"
-                      className="mr-2 size-4 shrink-0"
-                      onChange={(event) => {
-                        console.log(option.id);
-                        console.log(event.target.id);
-                      }}
-                    />
-                    <label htmlFor={option.id}> {option.text} </label>
-                  </div>
-                );
-              })}
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-red-500 py-3 text-xl px-4 font-medium rounded-3xl text-white flex justify-between"
-              onClick={submitAnswer}>
-              <span></span>
-              <span>Next</span>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-6">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                  />
-                </svg>
-              </span>
-            </button>
-          </form>
+          <QuestionCard
+            question={questionData[questionNumber].question}
+            optionsData={optionsData}
+            setOptionsData={setOptionsData}
+          />
+          <button
+            type="submit"
+            className="w-full bg-red-500 py-3 text-xl px-4 font-medium rounded-3xl text-white flex justify-between"
+            onClick={submitAnswer}>
+            <span></span>
+            <span>Next</span>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-6">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
       </main>
     </>
