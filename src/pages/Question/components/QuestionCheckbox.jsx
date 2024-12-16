@@ -1,3 +1,8 @@
+import PropTypes from "prop-types";
+QuestionCheckbox.propTypes = {
+  obj: PropTypes.object,
+  onChange: PropTypes.func
+};
 export default function QuestionCheckbox({ obj, onChange }) {
   return (
     <label
@@ -22,13 +27,7 @@ export default function QuestionCheckbox({ obj, onChange }) {
           clipRule="evenodd"
         />
       </svg>
-      <span>{obj.text}</span>
-
-      {/* onChange={(event) => onChange(obj.id, event.target.checked)} */}
+      <span className="font-semibold text-gray-800">{obj.text}</span>
     </label>
   );
 }
-//  onChange={(event) => {
-//   console.log(event.target.checked);
-//   onChange({ obj.id, event.target.checked });
-// }}

@@ -1,5 +1,6 @@
 import logoLight from "assets/images/logo/logoLight.svg";
-import { Navigate, useNavigate } from "react-router-dom";
+import BottomButton from "components/BottomButton";
+import { useNavigate } from "react-router-dom";
 export default function HomePage() {
   const navigate = useNavigate();
   return (
@@ -11,13 +12,14 @@ export default function HomePage() {
           onClick={() => navigate("/question")}>
           Quiz
         </button>
-        <button
-          className="w-full bg-red-500 py-3 text-2xl font-semibold rounded-3xl text-white"
+        <span></span>
+        <span></span>
+        <BottomButton
+          text="Start"
           onClick={() => {
             navigate("/question");
-          }}>
-          Start
-        </button>
+          }}
+        />
       </main>
     </>
   );

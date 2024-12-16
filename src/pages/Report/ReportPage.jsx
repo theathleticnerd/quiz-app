@@ -18,7 +18,6 @@ export default function ResultPage() {
       .catch((err) => {
         console.error(err.message);
       });
-    // setReportData(payload);
   };
   useEffect(() => {
     getReportData();
@@ -26,7 +25,7 @@ export default function ResultPage() {
   return (
     <>
       <main className="bg-[#B19EF3]  h-svh max-h-svh ">
-        <img src={confettiImage} alt="Confetti Image" />
+        <img src={confettiImage} alt="Confetti" />
         <div className="bottom-0 bg-white absolute items-center flex flex-col w-full  min-h-[34rem] px-4 py-6 rounded-t-3xl">
           <p className="text-2xl font-semibold mb-6">Your Result</p>
           <div className="mb-12">

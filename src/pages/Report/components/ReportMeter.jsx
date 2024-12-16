@@ -1,5 +1,8 @@
+import PropTypes from "prop-types";
 import semiCircleRing from "assets/images/Report/semicircleMeter.svg";
-
+ResultMeter.propTypes = {
+  percentage: PropTypes.number
+};
 export default function ResultMeter(props) {
   const percentage = props.percentage || 0;
   const convertToDegrees = (x) => {
@@ -11,7 +14,7 @@ export default function ResultMeter(props) {
   return (
     <>
       <section className="relative w-56 h-36">
-        <img src={semiCircleRing} />
+        <img src={semiCircleRing} alt="Semicircle Indicator for Report Meter" />
         <div className="absolute bottom-8 ">
           <div className="relative flex items-center justify-center w-56">
             <div
@@ -19,8 +22,6 @@ export default function ResultMeter(props) {
               style={{
                 bottom: "50%",
                 left: "50%",
-                // "transform-origin": "bottom",
-                // transform: "rotate(57deg) translateX(-50%)"
                 transformOrigin: "bottom center",
                 transform: `translateX(-50%) rotate(${convertToDegrees(percentage)}deg)`,
                 clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" // Triangular needle
