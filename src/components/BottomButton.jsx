@@ -15,7 +15,7 @@ export default function BottomButton(props) {
   const isLoading = props.isLoading;
   return (
     <button
-      className={`w-11/12  absolute  mx-auto bottom-4 py-6 text-lg px-4 font-semibold rounded-3xl text-white left-1/2 -translate-x-1/2 ${disabled ? "bg-gray-600" : "bg-red-500"}`}
+      className={`w-11/12  absolute  mx-auto bottom-4 py-6 text-lg px-4 font-semibold rounded-3xl text-white left-1/2 -translate-x-1/2 ${disabled ? "bg-gray-600" : "bg-red-500"} ${isLoading ? "bg-red-700" : ""}`}
       disabled={disabled}
       onClick={(event) => {
         props.onClick(event);

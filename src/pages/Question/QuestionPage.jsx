@@ -1,4 +1,5 @@
 import QuestionCard from "./components/QuestionCard";
+import LoaderComponent from "components/LoaderComponent";
 import confettiImage from "assets/images/Miscellaneous/confetti.svg";
 import api from "services/api";
 import { useEffect, useMemo, useState } from "react";
@@ -15,12 +16,17 @@ export default function QuestionPage() {
   const [optionsData, setOptionsData] = useState([]);
   const [timeStart, setTimeStart] = useState(null); // Tracks start time for a question
   const [responses, setResponses] = useState([]);
+  const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const navigate = useNavigate();
   const getQuestionList = () => {
+    setIsQuestionLoading(true);
     api.get("/c/b1cb-e82e-480e-834b").then((res) => {
       setQuestionList(res.data.questions);
       setQuestionIndex(0);
+      setTimeout(() => {
+        setIsQuestionLoading(false);
+      }, 500);
     });
   };
   useEffect(() => {
@@ -66,35 +72,43 @@ export default function QuestionPage() {
       <main className="bg-[#B19EF3]  h-svh max-h-svh ">
         <img src={confettiImage} alt="Confetti Image" />
         <div className="bottom-0 bg-white absolute flex flex-col w-full pb-6 h-[34rem] rounded-t-3xl">
-          <div className="relative">
-            <div className="bg-white size-32 rounded-full absolute  flex  items-center justify-center left-1/2 -translate-x-1/2 -translate-y-1/2">
-              <div className="border-8  size-28 rounded-full flex items-center justify-center">
-                <p className="flex items-baseline">
-                  <span className="text-5xl font-extrabold italic text-gray-800">
-                    {questionIndex + 1}
-                  </span>
-                  <span className="text-lg font-extrabold italic text-gray-400">/5</span>
-                </p>
+          {isQuestionLoading ? (
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2">
+              <LoaderComponent />
+            </div>
+          ) : (
+            <div>
+              <div className="relative">
+                <div className="bg-white size-32 rounded-full absolute  flex  items-center justify-center left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div className="border-8  size-28 rounded-full flex items-center justify-center">
+                    <p className="flex items-baseline">
+                      <span className="text-5xl font-extrabold italic text-gray-800">
+                        {questionIndex + 1}
+                      </span>
+                      <span className="text-lg font-extrabold italic text-gray-400">/5</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="h-full max-h-full">
+                <QuestionCard
+                  key={questionIndex}
+                  question={questionList?.[questionIndex]?.question}
+                  codeSnippet={questionList?.[questionIndex]?.codeSnippet}
+                  imageURL={questionList?.[questionIndex]?.imageURL}
+                  optionsData={optionsData}
+                  setOptionsData={setOptionsData}
+                />
+                <BottomButton
+                  onClick={submitAnswer}
+                  text="Next"
+                  disabled={selectedOptions.length === 0}
+                  rightIcon={rightArrowIcon}
+                  isLoading={isButtonLoading}
+                />
               </div>
             </div>
-          </div>
-          <div className="h-full max-h-full">
-            <QuestionCard
-              key={questionIndex}
-              question={questionList?.[questionIndex]?.question}
-              codeSnippet={questionList?.[questionIndex]?.codeSnippet}
-              imageURL={questionList?.[questionIndex]?.imageURL}
-              optionsData={optionsData}
-              setOptionsData={setOptionsData}
-            />
-            <BottomButton
-              onClick={submitAnswer}
-              text="Next"
-              disabled={selectedOptions.length === 0}
-              rightIcon={rightArrowIcon}
-              isLoading={isButtonLoading}
-            />
-          </div>
+          )}
         </div>
       </main>
     </>
