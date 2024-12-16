@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import rightArrowIcon from "assets/Icons/rightArrow.svg";
 import BottomButton from "components/BottomButton";
+import QuestionProgressLoader from "./components/QuestionProgressLoader";
 /*
 '/questions/list' : "https://dummyjson.com/c/b1cb-e82e-480e-834b"
 '/question/submit' : "https://dummyjson.com/c/00b8-6978-4596-a372"
@@ -67,6 +68,10 @@ export default function QuestionPage() {
     // Use filter to exclude unchecked items
     return optionsData.filter((item) => item.checked).map((item) => item.id);
   }, [optionsData]);
+  // const [percentage, setPercentage] = useState(32);
+  const percentage = useMemo(() => {
+    return ((questionIndex + 1) / 5) * 100;
+  });
   return (
     <>
       <main className="bg-[#B19EF3]  h-svh max-h-svh ">
@@ -78,18 +83,7 @@ export default function QuestionPage() {
             </div>
           ) : (
             <div>
-              <div className="relative">
-                <div className="bg-white size-32 rounded-full absolute  flex  items-center justify-center left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="border-8  size-28 rounded-full flex items-center justify-center">
-                    <p className="flex items-baseline">
-                      <span className="text-5xl font-extrabold italic text-gray-800">
-                        {questionIndex + 1}
-                      </span>
-                      <span className="text-lg font-extrabold italic text-gray-400">/5</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <QuestionProgressLoader questionIndex={questionIndex} percentage={percentage} />
               <div className="h-full max-h-full">
                 <QuestionCard
                   key={questionIndex}
