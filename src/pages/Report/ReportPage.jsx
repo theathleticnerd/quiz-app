@@ -30,7 +30,7 @@ export default function ResultPage() {
     <>
       <main className="bg-[#B19EF3]  h-svh max-h-svh ">
         <img src={confettiImage} alt="Confetti" />
-        <div className="bottom-0 bg-white absolute w-full min-h-[34rem] px-4 py-6 rounded-t-3xl">
+        <div className="bottom-0 bg-white absolute w-full h-5/6 px-4 py-6 rounded-t-3xl">
           {isReportLoading ? (
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2">
               <LoaderComponent />
@@ -38,7 +38,7 @@ export default function ResultPage() {
           ) : (
             <div className="flex flex-col items-center">
               <p className="text-2xl font-semibold mb-6">Your Result</p>
-              <div className="mb-12">
+              <div className="mb-24">
                 <ReportMeter percentage={reportData.percentage} />
               </div>
               <div className="bg-green-50 flex items-center w-full py-6 px-4 mb-4">

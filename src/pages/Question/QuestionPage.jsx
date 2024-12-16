@@ -76,7 +76,7 @@ export default function QuestionPage() {
     <>
       <main className="bg-[#B19EF3]  h-svh max-h-svh ">
         <img src={confettiImage} alt="Confetti Image" />
-        <div className="bottom-0 bg-white absolute flex flex-col w-full pb-6 h-[34rem] rounded-t-3xl">
+        <div className="bottom-0 bg-white absolute flex flex-col w-full pb-6 h-5/6 rounded-t-3xl">
           {isQuestionLoading ? (
             <div className="absolute top-1/3 left-1/2 -translate-x-1/2">
               <LoaderComponent />
@@ -93,6 +93,8 @@ export default function QuestionPage() {
                   optionsData={optionsData}
                   setOptionsData={setOptionsData}
                 />
+              </div>
+              <div className="sticky bottom-0 mt-10">
                 <BottomButton
                   onClick={submitAnswer}
                   text="Next"

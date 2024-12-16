@@ -14,36 +14,34 @@ export default function QuestionCard(props) {
   const setData = props.setOptionsData;
   const codeSnippet = props.codeSnippet;
   return (
-    <>
-      <section>
-        <div className="px-4 pb-6 mt-16  grow flex flex-col justify-between">
-          <p className="text-xl font-extrabold text-gray-800 mb-4">{question}</p>
-          <div className="overflow-y-auto h-[22rem] mb-4">
-            {codeSnippet && (
-              <div className="bg-slate-900 py-4 px-2 text-slate-100 font-semibold mb-4">
-                {codeSnippet}
-              </div>
-            )}
-            {imageURL && (
-              <div>
-                <img src={imageURL} alt={question} className="mb-4" />
-              </div>
-            )}
-            <ul>
-              {data.map((obj, index) => (
-                <li key={index}>
-                  <QuestionCheckbox
-                    obj={obj}
-                    onChange={(item) => {
-                      setData(data.map((d) => (d.id === item.id ? item : d)));
-                    }}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
+    <section>
+      <div className="px-4 mt-16 flex flex-col justify-between">
+        <p className="text-xl font-extrabold text-gray-800 mb-4">{question}</p>
+        <div className="mb-4">
+          {codeSnippet && (
+            <div className="bg-slate-900 py-4 px-2 text-slate-100 font-semibold mb-4">
+              {codeSnippet}
+            </div>
+          )}
+          {imageURL && (
+            <div>
+              <img src={imageURL} alt={question} className="mb-4" />
+            </div>
+          )}
+          <ul>
+            {data.map((obj, index) => (
+              <li key={index}>
+                <QuestionCheckbox
+                  obj={obj}
+                  onChange={(item) => {
+                    setData(data.map((d) => (d.id === item.id ? item : d)));
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
